@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <style>
+        /* Add CSS styles for mobile devices */
+        @media (max-width: 600px) {
+            body {
+                font-size: 14px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            label {
+                font-size: 16px;
+            }
+            input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+            input[type="submit"] {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Password Strength Checker</h1>
+    <form action="/check-password" method="POST">
+        <label for="password">Enter your password:</label><br><br>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+        <input type="submit" value="Check Password">
+    </form>
+</body>
+</html>
