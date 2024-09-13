@@ -1,21 +1,21 @@
-import express, { urlencoded, json } from 'express';
-import zxcvbn from 'zxcvbn';
-import { get } from 'axios';
-import { createHash } from 'crypto';
-import { join } from 'path';
+const express = require('express');
+const zxcvbn = require('zxcvbn');
+const axios = require('axios');
+const crypto = require('crypto');
+const path = require('path');
 
 const app = express();
-app.use(urlencoded({ extended: true })); // Middleware for form data
-app.use(json()); // Middleware for JSON requests
+app.use(express.urlencoded({ extended: true })); // Middleware for form data
+app.use(express.json()); // Middleware for JSON requests
 
 // Serve the HTML page
 app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Helper function to get the SHA-1 hash of the password
 const sha1 = (password) => {
-  return createHash('sha1').update(password).digest('hex').toUpperCase();
+  return crypto.createHash('sha1').update(password).digest('hex').toUpperCase();
 };
 
 // Helper function to check if password is in the Pwned Passwords database
@@ -25,7 +25,7 @@ const checkPwnedPassword = async (password) => {
   const suffix = hashedPassword.slice(5);
 
   try {
-    const response = await get(`https://api.pwnedpasswords.com/range/${prefix}`);
+    const response = await axios.get(`https://api.pwnedpasswords.com/range/${prefix}`);
     const lines = response.data.split('\n');
     for (let line of lines) {
       const [hashSuffix, count] = line.split(':');
