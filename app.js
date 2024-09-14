@@ -20,6 +20,7 @@ const sha1 = (password) => {
 
 // Helper function to check if password is in the Pwned Passwords database
 const checkPwnedPassword = async (password) => {
+  console.log(password);
   const hashedPassword = sha1(password);
   const prefix = hashedPassword.slice(0, 5);
   const suffix = hashedPassword.slice(5);
